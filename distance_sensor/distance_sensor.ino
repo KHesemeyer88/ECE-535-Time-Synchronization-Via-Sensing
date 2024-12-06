@@ -12,9 +12,26 @@ void setup() {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   Serial.begin(9600); // Starts the serial communication
-  //detect event, only send timestamp of event
-  //sensing delay is so small / noexistent / negliagilble
+
+  // Delay handshake
+
+  Serial.println("Begin");
+
+  byte var = 1;
+  byte var2 = 1;
+  int i = 0; 
+
+  while (true) {
+    if (Serial.available()) {
+      if (Serial.readStringUntil('\n') == "hello") {
+        Serial.println("Timestamp " + String(micros()));
+        break;
+      }
+    }
+  }
 }
+
+
 
 void loop() {
   // Clears the trigPin
@@ -28,14 +45,10 @@ void loop() {
   duration = pulseIn(echoPin, HIGH);
   // Calculating the distance
   distance = duration * 0.034 / 2;
-
-
-  if (distance <= distance_threshold && prev_distance > distance_threshold) { // Event detected
-    Serial.print("Event #");
-    Serial.print(event);
-    Serial.print(": ");
-    event++;
+  // Prints the distance on the Serial Monitor if event detected
+  if (distance < 10) {
+    Serial.print(distance);
+    Serial.print(" ");
+    Serial.println(micros());
   }
-  Serial.println(micros());
-  prev_distance = distance;
 }
