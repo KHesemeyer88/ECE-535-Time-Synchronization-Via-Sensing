@@ -7,6 +7,7 @@ int distance;
 int prev_distance;
 int distance_threshold = 10;
 int event;
+int event_time;
 
 void setup() {
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
@@ -46,13 +47,16 @@ void loop() {
   // Calculating the distance
   distance = duration * 0.034 / 2;
 
-
-  if (distance <= distance_threshold && prev_distance > distance_threshold) { // Event detected
+  if (distance <= distance_threshold && prev_distance > distance_threshold && (micros() - event_time >= 500000)) { // Event detected
+    event_time = micros();
     Serial.print("Event #");
     Serial.print(event);
     Serial.print(": ");
     event++;
+    
   }
-  Serial.println(micros());
+  Serial.print(micros());
+  Serial.print(" ");
+  Serial.println(distance);
   prev_distance = distance;
 }
