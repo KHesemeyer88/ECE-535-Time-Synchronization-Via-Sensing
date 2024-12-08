@@ -5,7 +5,7 @@ const int echoPin = 21;
 long duration;
 int distance;
 int prev_distance;
-int distance_threshold = 10;
+int distance_threshold = 15;
 int event;
 int event_time;
 
