@@ -46,8 +46,10 @@ while not (hs1 and hs2):
     print("waiting for handshake")
 print("Handshake complete\ndelay1: ", delay1, "\ndelay2: ", delay2)
 
-
-while i < 2500:
+minutes_to_run = 20
+test_duration = time.time() + 60 * minutes_to_run
+while time.time() < test_duration:
+#while i < 2500:
     # ----- Read serial data from ESP32 Things -----
     esp1_data = esp1_ser.readline().decode('utf-8').strip().split(' ')
     esp2_data = esp2_ser.readline().decode('utf-8').strip().split(' ')
