@@ -1,8 +1,8 @@
 #!/usr/bin/python
 import serial # type: ignore
 import time
-import numpy as np
-import matplotlib.pyplot as plt
+import numpy as np # type: ignore
+import matplotlib.pyplot as plt # type: ignore
 import statistics
 
 # serial1 = serial.Serial('/dev/ttyUSB0', 9600)
